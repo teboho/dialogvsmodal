@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            /* Readable background color */
+            background-color: #f1f1f1;
+        }
+        .btnDialog {
+            position: fixed;
+            right: 0;
+            top: 0;
+        }
+        .btnModal {
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <button class="btnDialog">dialog: show</button>
+    <button class="btnModal">modal: show</button>
+    
+    <dialog>
+        <h2>Hello Dialog</h2>
+        <p>This is my first dialog</p>
+    </dialog>
+    
+    <h1>What is a modal?</h1>
+    <p>
+        A modal is a pop up that appears on top of the page.
+        A modal, as a pop up, takes the focus away from the 
+        current page, and <u>takes priority over the page content.</u>
+    </p>
+    <p>
+        When the modal does not take focus away from the page,
+        we call it a dialog. In fact, HTML spec provides the dialog tag,
+        as a way we can introduce modal dialogs to our pages.
+    </p>
+    <p>Again, modal takes focus away from the page, and dialog does not take focus away,
+        although it still does pop up on top of the page. Also, in most cases,
+        with a modal, you can scroll the page behind the modal but the modal itself will not move.
+        While the dialog will move with the page. 
+    </p>
+    <p>
+        We can easily say, a modal is not part of the page, 
+        while a dialog, even as a popup, is a part of the page content.
+    </p>
+    <p>
+        In this tutorial, we will be demonstrating how a modal and a dialog operate.
+        <hr />
+        Like we said earlier, the html specification provides us with the <em>dialog</em> 
+        tag to achieve modals and dialogs. <br />
+        And what it is, is a fancy div tag.. since you can put anything inside it
+    </p>
+    <p>
+        Now, the way a dialog tag works is that it is always hidden. If you want it 
+        to show on the page, you need to include the <em>open</em> attribute
+    </p>
+    <p>
+        We will use javascript to interact and control the dialog element.
+        Maybe to show what happens when a button is clicked!
+    </p>
+    <p>
+        In order to show it as a non modal dialog, we just call show on it, and 
+        to close it we just call close on it.
+    </p>
+
+    <img src="spider.jpg" alt="spider man"/>  
+
+    <footer>
+        &copy; 2023
+    </footer>
+
+    <script>
+        let i = 0;
+        const dialog = document.querySelector('dialog');
+        const btnDialog = document.querySelector('.btnDialog');
+        btnDialog.onclick = (event) => {
+            if (i % 2 == 0) { 
+                dialog.show(); // show opens the dialog as a non-modal
+                btnDialog.textContent = "dialog: close"
+            } else {
+                dialog.close();
+                btnDialog.textContent = "dialog: open"
+            }
+            i++;
+        };
+        const btnModal = document.querySelector('.btnModal');
+        btnModal.onclick = (event) => {
+            // create a button inside the modal for closing
+            dialog.showModal(); // show opens the dialog as a non-modal
+            let btn = document.createElement('button');
+            btn.classList.add('btn');
+            btn.textContent = 'modal: close';
+            dialog.appendChild(btn);
+
+            // we have to handle this button work from inside here because this button only exists from in here
+            btn = document.querySelector('button.btn');
+            btn.onclick = (event) => {
+                dialog.close(); 
+                // remove the button inside the modal
+                dialog.removeChild(btn);
+            }
+        }
+    </script>
+</body>
+</html>
