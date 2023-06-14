@@ -10,15 +10,35 @@
             /* Readable background color */
             background-color: #f1f1f1;
         }
+        dialog {
+            /* bootsrap gradient red */
+            background: radial-gradient(circle, rgba(252,82,150,1) 0%, rgba(246,112,98,1) 100%);
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid black;
+            /* bootstrap blue */
+            background-color: #007bff;
+            cursor: pointer;
+            /* shadows */
+            box-shadow: 0 0 5px 0 black;
+        }
+        button:hover {
+            background-color: #f1f1f1;
+        }
         .btnDialog {
             position: fixed;
-            right: 0;
-            top: 0;
+            right: 1em;
+            top: 1em;
         }
         .btnModal {
             position: fixed;
-            left: 0;
-            top: 0;
+            right: 1em;
+            bottom: 1em;
         }
     </style>
 </head>
@@ -84,6 +104,9 @@
         btnDialog.onclick = (event) => {
             if (i % 2 == 0) { 
                 dialog.show(); // show opens the dialog as a non-modal
+                dialog.innerHTML =`<h1>This is a non-modal dialog</h1>
+                                    <p>Close it with the same button you used to open it (top-right corner)</p>
+                                    <p>non-modal dialog does not take focus away from the page content</p>`;
                 btnDialog.textContent = "dialog: close"
             } else {
                 dialog.close();
@@ -93,6 +116,11 @@
         };
         const btnModal = document.querySelector('.btnModal');
         btnModal.onclick = (event) => {
+            dialog.innerHTML =`<h1>This is a modal</h1>
+                                <p>Close it with the button bellow</p>
+                                <p>Modal takes the focus away from the background!</p>
+                                <h2>Dialogs and modals can hold anything</h2>
+                                <img src="spider.jpg" alt="spider man"/>`;
             // create a button inside the modal for closing
             dialog.showModal(); // show opens the dialog as a non-modal
             let btn = document.createElement('button');
