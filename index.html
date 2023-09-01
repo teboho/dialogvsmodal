@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        :root {
+            /* Readable background color */
+            background-color: #c5e1f1;
+        }
         body{
             font-family: Arial, Helvetica, sans-serif;
-            /* Readable background color */
-            background-color: #f1f1f1;
         }
         dialog {
             /* bootsrap gradient red */
@@ -49,6 +51,15 @@
             position: fixed;
             right: 1em;
             bottom: 1em;
+        }
+        form {
+            text-align: left;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        textarea {
+            margin: 10px 0;
         }
     </style>
 </head>
@@ -120,8 +131,22 @@
                 dialog.show(); // show opens the dialog as a non-modal
                 dialog.innerHTML =`<h1>This is a non-modal dialog</h1>
                                     <p>Close it with the same button you used to open it (top-right corner)</p>
-                                    <p>non-modal dialog does not take focus away from the page content</p>`;
-                btnDialog.textContent = "dialog: close"
+                                    <p>non-modal dialog does not take focus away from the page content 
+                                        <br />
+                                        i.e. you can still some-what interact (e.g copy) with the main page content
+                                    </p>
+                                    <form>
+                                        <h3>Example Form inside a dialog</h3>
+                                        <label for="name">Name</label>
+                                        <input type="text" name="name" id="name" placeholder="Enter your name here"/>  
+                                        <br />
+                                        <textarea draggable disabled name="message" id="message" cols="30" rows="2"></textarea>
+                                    </form>`;
+                btnDialog.textContent = "dialog: close";
+                // we can also add event listeners inside the dialog
+                document.getElementById('name').onkeyup = (event) => { // can be onchange
+                    document.getElementById('message').value = `Hello ${event.target.value}!`;
+                }
             } else {
                 dialog.close();
                 btnDialog.textContent = "dialog: open"
@@ -133,7 +158,7 @@
             dialog.innerHTML =`<h1>This is a modal</h1>
                                 <p>Close it with the button bellow</p>
                                 <p>Modal takes the focus away from the background!</p>
-                                <h2>Dialogs and modals can hold anything</h2>
+                                <h2>Both dialogs and modals can hold anything</h2>
                                 <img src="spider.jpg" alt="spider man"/><br />`;
             // create a button inside the modal for closing
             dialog.showModal(); // show opens the dialog as a non-modal
