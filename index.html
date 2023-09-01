@@ -22,9 +22,7 @@
             margin: 2em;
             /* thicker shadows */
             box-shadow: 0 0 10px 0 black;
-        
             text-align: center;
-
         }
         button {
             padding: 10px;
@@ -60,6 +58,28 @@
         }
         textarea {
             margin: 10px 0;
+        }
+        iframe {
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        /* glowing animation */
+        @keyframes glowing {
+            0% {
+                background-color: #007bff;
+                box-shadow: 0 0 5px 0 #007bff;
+            }
+            50% {
+                background-color: #f1f1f1;
+                box-shadow: 0 0 20px 0 #f1f1f1;
+            }
+            100% {
+                background-color: #007bff;
+                box-shadow: 0 0 5px 0 #007bff;
+            }
+        }
+        .alert {
+            animation: glowing 1500ms infinite;
         }
     </style>
 </head>
@@ -156,14 +176,21 @@
         const btnModal = document.querySelector('.btnModal');
         btnModal.onclick = (event) => {
             dialog.innerHTML =`<h1>This is a modal</h1>
-                                <p>Close it with the button bellow</p>
-                                <p>Modal takes the focus away from the background!</p>
+                                <p class="alert">Close it with the button bellow</p>
+                                <p>Modal takes the focus away from the background!<br/>You can't interact with the main page content in this state.</p>
                                 <h2>Both dialogs and modals can hold anything</h2>
-                                <img src="spider.jpg" alt="spider man"/><br />`;
+                                <p>For example, here is an embedded youtube video 📼</p>`
+                                +
+                                `<iframe width="560" height="315" 
+                                    src="https://www.youtube.com/embed/URCClNrYiBA?si=8w2tWZhWpUa50yIs&amp;start=180" 
+                                    title="YouTube video player" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen></iframe><br/>`;
             // create a button inside the modal for closing
             dialog.showModal(); // show opens the dialog as a non-modal
             let btn = document.createElement('button');
             btn.classList.add('btn');
+            btn.classList.add('alert');
             btn.textContent = 'modal: close';
             dialog.appendChild(btn);
 
