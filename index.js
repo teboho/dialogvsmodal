@@ -60,5 +60,5 @@ btnModal.onclick = (event) => {
 }
 
 function btnClicked(event) {
-    alert(document.getElementById('name').value);
+    alert(`Hello `+ document.getElementById('name').value);
 }
